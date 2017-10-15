@@ -4,8 +4,8 @@
 
 /**
 * @file EventContainer.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief イベント基底クラス
+* @details イベント基底クラス
 */
 
 #include "EventType.h"

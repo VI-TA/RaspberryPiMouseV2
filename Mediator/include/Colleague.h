@@ -4,8 +4,8 @@
 
 /**
 * @file Colleague.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief 制御機能の基底クラス
+* @details 制御機能の基底クラス
 */
 
 class Mediator;

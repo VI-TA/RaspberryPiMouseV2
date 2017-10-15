@@ -1,7 +1,7 @@
 /**
 * @file CollLed.cpp
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief LED制御
+* @details LED制御
 */
 
 #include <stdio.h>

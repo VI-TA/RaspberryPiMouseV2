@@ -4,8 +4,8 @@
 
 /**
 * @file CollRemote.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief リモート制御
+* @details リモート制御
 */
 
 class Mediator;

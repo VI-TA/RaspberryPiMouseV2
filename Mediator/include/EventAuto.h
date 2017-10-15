@@ -4,8 +4,8 @@
 
 /**
 * @file EventAuto.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief 自走機能イベント
+* @details 自走機能イベント
 */
 
 #include "EventType.h"

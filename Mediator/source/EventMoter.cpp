@@ -1,7 +1,7 @@
 /**
 * @file EventMoter.cpp
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief モーター制御イベント
+* @details モーター制御イベント
 */
 
 #include "EventContainer.h"

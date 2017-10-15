@@ -1,7 +1,7 @@
 /**
 * @file CollSensor.cpp
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief 距離センサー計測制御
+* @details 距離センサー計測制御
 */
 
 #include <stdio.h>

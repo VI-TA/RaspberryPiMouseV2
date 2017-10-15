@@ -4,8 +4,8 @@
 
 /**
 * @file EventType.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief イベントタイプ定義
+* @details イベントタイプ定義
 */
 
 // イベントタイプ

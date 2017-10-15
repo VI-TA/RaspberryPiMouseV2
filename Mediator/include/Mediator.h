@@ -4,8 +4,8 @@
 
 /**
 * @file Mediater.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief イベント中継基底クラス
+* @details イベント中継基底クラス
 */
 
 #include <map>

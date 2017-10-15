@@ -4,8 +4,8 @@
 
 /**
 * @file MediEventRouter.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief 機能制御オブジェクト間イベント中継制御
+* @details 機能制御オブジェクト間イベント中継制御
 */
 
 #include "EventType.h"

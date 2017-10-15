@@ -4,8 +4,8 @@
 
 /**
 * @file EventLed.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief LED制御イベント 
+* @details LED制御イベント 
 */
 
 #include "EventType.h"

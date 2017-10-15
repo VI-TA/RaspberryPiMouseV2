@@ -4,8 +4,8 @@
 
 /**
 * @file CollAuto.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief 自走制御
+* @details 自走制御
 */
 
 class Mediator;

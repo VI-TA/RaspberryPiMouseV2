@@ -1,7 +1,7 @@
 /**
 * @file main.cpp
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief マイクロマウス制御メイン
+* @details マイクロマウス制御メイン
 */
 
 #include <stdio.h>

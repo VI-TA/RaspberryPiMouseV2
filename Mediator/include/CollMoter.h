@@ -4,8 +4,8 @@
 
 /**
 * @file CollMoter.h
-* @brief 簡単な説明
-* @details 詳細な説明
+* @brief モーター制御
+* @details モーター制御
 */
 
 class Mediator;
