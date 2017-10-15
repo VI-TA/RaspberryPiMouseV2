@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _COLLREMOTE_H
 #define _COLLREMOTE_H
+
+/**
+* @file CollRemote.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 class Mediator;
 class Colleague;

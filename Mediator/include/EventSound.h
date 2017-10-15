@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _EVENTSOUND_H
 #define _EVENTSOUND_H
+
+/**
+* @file EventSound.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 #include <vector>
 #include "EventType.h"

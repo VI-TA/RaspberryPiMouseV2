@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _EVENTCONTAINER_H
 #define _EVENTCONTAINER_H
+
+/**
+* @file EventContainer.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 #include "EventType.h"
 

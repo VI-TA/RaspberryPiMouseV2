@@ -10,9 +10,7 @@
 (1) ファイルヘッダ
 /**
 * @file ファイル名.h
-* @brief 簡単な説明
-* @author 作成者
-* @date 作成日
+* @brief 簡単な説明を
 * @details 詳細な説明
 */
 

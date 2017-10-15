@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _EVENTLED_H
 #define _EVENTLED_H
+
+/**
+* @file EventLed.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 #include "EventType.h"
 

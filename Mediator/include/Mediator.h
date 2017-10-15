@@ -1,8 +1,12 @@
-// インクルード二重定義抑止の手法
-//#pragma once
-
+#pragma once
 #ifndef _MEDIATOR_H
 #define _MEDIATOR_H
+
+/**
+* @file Mediater.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 #include <map>
 #include "EventType.h"

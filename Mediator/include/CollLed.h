@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _COLLLED_H
 #define _COLLLED_H
+
+/**
+* @file CollLed.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 class Mediator;
 class Colleague;

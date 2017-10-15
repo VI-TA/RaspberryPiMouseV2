@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _EVENT_TYPE_H
 #define _EVENT_TYPE_H
+
+/**
+* @file EventType.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 // イベントタイプ
 enum EVENT_TYPE {

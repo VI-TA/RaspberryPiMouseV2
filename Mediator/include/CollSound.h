@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _COLLSOUND_H
 #define _COLLSOUND_H
+
+/**
+* @file CollSound.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 class Mediator;
 class Colleague;

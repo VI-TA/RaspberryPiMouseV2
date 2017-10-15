@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _EVENTMOTER_H
 #define _EVENTMOTER_H
+
+/**
+* @file EventMoter.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 #include "EventType.h"
 

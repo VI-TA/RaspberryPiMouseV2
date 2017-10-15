@@ -1,5 +1,12 @@
+#pragma once
 #ifndef _COLLAUTO_H
 #define _COLLAUTO_H
+
+/**
+* @file CollAuto.h
+* @brief 簡単な説明
+* @details 詳細な説明
+*/
 
 class Mediator;
 class Colleague;
