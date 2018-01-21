@@ -1,0 +1,4 @@
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o ./obj/FuncMoter.o -c FunctionNode/FuncMoter.cpp
+Makefile.FunctionNode:29: recipe for target 'obj/FuncMoter.o' failed
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o ./obj/FuncMoter.o -c FunctionNode/FuncMoter.cpp
+Makefile.FunctionNode:29: recipe for target 'obj/FuncMoter.o' failed
