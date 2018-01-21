@@ -1,17 +1,16 @@
-﻿  FunctionNode.cpp
+﻿  stdafx.cpp
+  FunctionNode.cpp
   FuncSound.cpp
-  FuncLed.cpp
-  FuncAuto.cpp
-  コードを生成中...
-  コンパイル中...
   FuncSensor.cpp
 c:\git\raspberrypimousev2\mousesoulappsforvs\functionnode\funcsensor.cpp(118): warning C4101: 'buf': ローカル変数は 1 度も使われていません。
 c:\git\raspberrypimousev2\mousesoulappsforvs\functionnode\funcsensor.cpp(120): warning C4101: 'data': ローカル変数は 1 度も使われていません。
 c:\git\raspberrypimousev2\mousesoulappsforvs\functionnode\funcsensor.cpp(119): warning C4101: 'sensor': ローカル変数は 1 度も使われていません。
   FuncMoter.cpp
+  FuncLed.cpp
   FuncExcom.cpp
 c:\git\raspberrypimousev2\mousesoulappsforvs\functionnode\funcexcom.cpp(54): warning C4101: 'buf': ローカル変数は 1 度も使われていません。
 c:\git\raspberrypimousev2\mousesoulappsforvs\functionnode\funcexcom.cpp(56): warning C4101: 'data': ローカル変数は 1 度も使われていません。
 c:\git\raspberrypimousev2\mousesoulappsforvs\functionnode\funcexcom.cpp(55): warning C4101: 'sensor': ローカル変数は 1 度も使われていません。
+  FuncAuto.cpp
   コードを生成中...
   FunctionNode.vcxproj -> C:\Git\RaspberryPiMouseV2\MouseSoulAppsForVS\Debug\FunctionNode.lib
