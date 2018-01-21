@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _EVENT_TYPE_H
 #define _EVENT_TYPE_H
 

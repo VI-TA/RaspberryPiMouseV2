@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _FUNC_EXCOM_H
 #define _FUNC_EXCOM_H
 

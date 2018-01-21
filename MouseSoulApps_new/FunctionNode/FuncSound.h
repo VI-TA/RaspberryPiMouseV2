@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _FUNC_SOUND_H
 #define _FUNC_SOUND_H
 

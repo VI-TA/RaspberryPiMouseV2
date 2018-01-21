@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _EVENT_CTRL_AUTO_CONTROL_H
 #define _EVENT_CTRL_AUTO_CONTROL_H
 

@@ -1,6 +1,5 @@
-﻿  EventRouter.cpp
-  コードを生成中...
-  コンパイル中...
+﻿  stdafx.cpp
   EventRouterBase.cpp
+  EventRouter.cpp
   コードを生成中...
-  EventRouter.vcxproj -> C:\Git\RaspberryPiMouseV2\MouseSoulAppsForVS\Debug\EventRouter.lib
+  EventRouter.vcxproj -> C:\Git\RaspberryPiMouseV2\MouseSoulApps_new\Debug\EventRouter.lib

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _FUNC_AUTO_H
 #define _FUNC_AUTO_H
 

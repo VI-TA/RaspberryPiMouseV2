@@ -1,4 +1,4 @@
-/**
+﻿/**
 * @file EventContainer.h
 * @brief イベントコンテナ基底クラスヘッダ
 * @details イベントコンテナ基底クラスヘッダ

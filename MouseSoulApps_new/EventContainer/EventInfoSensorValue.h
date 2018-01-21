@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _EVENT_INFO_SENSOR_VALUE_H
 #define _EVENT_INFO_SENSOR_VALUE_H
 

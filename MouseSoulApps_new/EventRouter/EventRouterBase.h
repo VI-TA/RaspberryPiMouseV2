@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _EVENT_ROUTER_BASE_H
 #define _EVENT_ROUTER_BASE_H
 

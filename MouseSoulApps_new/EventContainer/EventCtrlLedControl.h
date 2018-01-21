@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _EVENT_CTRL_LED_CONTROL_H
 #define _EVENT_CTRL_LED_CONTROL_H
 

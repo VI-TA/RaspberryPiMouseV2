@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _EVENT_CTRL_MOTER_SWITCH_H
 #define _EVENT_CTRL_MOTER_SWITCH_H
 
