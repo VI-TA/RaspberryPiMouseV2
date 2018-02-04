@@ -30,3 +30,15 @@ int EventCtrlLedControl::getLed(void)
 {
 	return m_state;
 }
+
+// シリアライズデータ設定
+bool EventCtrlLedControl::setSerializeString(std::string serializeString)
+{
+}
+
+// シリアライズ文字列取得
+std::string EventCtrlLedControl::toSerializeString() const
+{
+	std::string	tmpStr;
+	return tmpStr;
+}

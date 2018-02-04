@@ -19,3 +19,15 @@ EventCtrlExcomControl::EventCtrlExcomControl()
 EventCtrlExcomControl::~EventCtrlExcomControl()
 {
 }
+
+// シリアライズデータ設定
+bool EventCtrlExcomControl::setSerializeString(std::string serializeString)
+{
+}
+
+// シリアライズ文字列取得
+std::string EventCtrlExcomControl::toSerializeString() const
+{
+	std::string	tmpStr;
+	return tmpStr;
+}

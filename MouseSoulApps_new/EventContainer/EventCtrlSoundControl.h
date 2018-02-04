@@ -27,6 +27,12 @@ public:
 
 	// 楽譜取得
 	std::vector<int> getSoundScore(void);
+
+        //! シリアライズデータ設定
+        virtual bool setSerializeString(std::string serializeString);
+
+	// シリアライズ文字列
+	virtual std::string	toSerializeString(void) const;
 private:
 	// 楽譜
 	std::vector<int> m_score;

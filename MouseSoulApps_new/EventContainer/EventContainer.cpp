@@ -66,45 +66,52 @@ EventContainer::EVENT_TYPE EventContainer::getEventType(void) const
 }
 
 
-bool EventContainer::toBool()
+bool EventContainer::toBool() const
 {
 	return m_bool;
 }
 
-int EventContainer::toInt()
+int EventContainer::toInt() const
 {
 	return m_int;
 }
 
-unsigned long EventContainer::toULong()
+unsigned long EventContainer::toULong() const
 {
 	return m_uLong;
 }
 
-float EventContainer::toFloat()
+float EventContainer::toFloat() const
 {
 	return m_float;
 }
 
-std::vector<int> EventContainer::toIntArray()
+std::vector<int> EventContainer::toIntArray() const
 {
 	return m_intArray;
 }
 
-std::vector<unsigned long> EventContainer::toULongArray()
+std::vector<unsigned long> EventContainer::toULongArray() const
 {
 	return m_uLontArray;
 }
 
-std::vector<float> EventContainer::toFloatArray()
+std::vector<float> EventContainer::toFloatArray() const
 {
 	return m_floatArray;
 }
 
-std::string EventContainer::toString()
+std::string EventContainer::toString() const
 {
 	return m_string;
 }
+
+std::string EventContainer::toSerializeString() const
+{
+	return m_serializeStr;
+}
+
+
 
 // ////////////////////////////////////////////////////////////////////////////////
 // 情報
@@ -112,26 +119,6 @@ std::string EventContainer::toString()
 
 void EventContainer::printEventName(EVENT_TYPE type) const
 {
-	switch(type) {
-        case EVENT_INFO_SENSOR_VALUE:
-//		std::cout << "EVENT_SENSOR_VALUE:" << endl;
-		break;
-        case EVENT_CTRL_MOTER_CONTROL:
-//		cout << "EVENT_MOTER_CONTROL:" << endl;
-		break;
-        case EVENT_CTRL_MOTER_SWITCH:
-//		cout << "EVENT_LED_CONTROL:" << endl;
-		break;
-        case EVENT_CTRL_LED_CONTROL:
-//		cout << "EVENT_SOUND_CONTROL:" << endl;
-		break;
-        case EVENT_CTRL_SOUND_CONTROL:
-//		cout << "EVENT_REMOTE_CONTROL:" << endl;
-		break;
-        case EVENT_CTRL_EXCOM_CONTROL:
-//		cout << "EVENT_AUTO_CONTROL:" << endl;
-		break;
-	}
 }
 
 // ////////////////////////////////////////////////////////////////////////////////

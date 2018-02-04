@@ -26,6 +26,12 @@ public:
 
 	// LED状態取得
 	int getLed(void);
+
+        //! シリアライズデータ設定
+        virtual bool setSerializeString(std::string serializeString);
+
+	// シリアライズ文字列
+	virtual std::string	toSerializeString(void) const;
 private:
 	// LED状態
 	int m_state;

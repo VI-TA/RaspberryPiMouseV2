@@ -19,3 +19,15 @@ EventCtrlAutoControl::EventCtrlAutoControl()
 EventCtrlAutoControl::~EventCtrlAutoControl()
 {
 }
+
+// シリアライズデータ設定
+bool EventCtrlAutoControl::setSerializeString(std::string serializeString)
+{
+}
+
+// シリアライズ文字列取得
+std::string EventCtrlAutoControl::toSerializeString() const
+{
+	std::string	tmpStr;
+	return tmpStr;
+}

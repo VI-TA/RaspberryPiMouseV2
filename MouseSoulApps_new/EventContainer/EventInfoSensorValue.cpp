@@ -36,4 +36,24 @@ void EventInfoSensorValue::getSensorValue(int &left, int &leftCenter, int &right
 	right = m_right;
 }
 
+// シリアライズデータ設定
+bool EventInfoSensorValue::setSerializeString(std::string serializeString)
+{
+}
 
+// シリアライズ文字列取得
+std::string EventInfoSensorValue::toSerializeString() const
+{
+	std::string	tmpStr;
+
+	tmpStr = "EVENT_INFO_SENSOR_VALUE,";
+	tmpStr += std::to_string(m_left);
+	tmpStr += ",";
+	tmpStr += std::to_string(m_leftCenter);
+	tmpStr += ",";
+	tmpStr += std::to_string(m_rightCenter);
+	tmpStr += ",";
+	tmpStr += std::to_string(m_right);
+
+	return tmpStr;
+}

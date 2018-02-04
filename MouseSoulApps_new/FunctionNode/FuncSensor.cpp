@@ -28,14 +28,34 @@
 //#include <sys/stat.h>
 //#include <fcntl.h>
 
-// コンストラクタ
+/**
+* @fn FuncSensor::FuncSensor()
+* @brief コンストラクタ
+* @param[in]
+* @param[out]
+* @return
+* @sa
+* @details
+*/
 FuncSensor::FuncSensor()
 {
-	m_threadState = false;	// スレッド停止
+	m_intervalValue = 1000;	// センサー読み取り間隔
+
 	m_sensorState = false;	// 計測停止
+
+	m_threadState = true;	// スレッド開始
+	m_thread = std::thread(&FuncSensor::measureSensor, this);
 }
 
-// デストラクタ
+/**
+* @fn FuncSensor::~FuncSensor()
+* @brief デストラクタ
+* @param[in]
+* @param[out]
+* @return
+* @sa
+* @details
+*/
 FuncSensor::~FuncSensor()
 {
 }
@@ -51,8 +71,6 @@ void FuncSensor::setEventRouter(EventRouterBase *pEventRouter)
 
 void FuncSensor::startMeasureSensor()
 {
-	m_threadState = true;	// スレッド開始
-	m_thread = std::thread(&FuncSensor::measureSensor, this);
 }
 
 void FuncSensor::stopMeasureSensor()
@@ -68,35 +86,24 @@ void FuncSensor::stopMeasureSensor()
 void FuncSensor::eventHandler(const EventContainer *pEc)
 {
 	std::cout << "FuncSensor::eventHandler" << "[" << pEc->getEventType() << "]" << std::endl;
+
+	// センサースイッチ制御イベントの場合
 	if (EventContainer::EVENT_CTRL_SENSOR_SWITCH == pEc->getEventType()) {
 		// センサー計測開始／停止スイッチ切り替え
-		if (m_sensorState) {
-			m_sensorState = false;
-		} else {
-			m_sensorState = true;
-		}
-	}
-	
-#if 0
-	int left, leftCenter, rightCenter, right;
-	EventSensor *pEs;
+		bool switchValue = pEc->toBool();
 
-	pEc->printEventName(pEc->getEventType());
+		std::lock_guard<std::mutex> uniq_lk(mtx);
+		m_sensorState = switchValue;
+		cv.notify_all();
 
-	if (pEc->getEventType() == EVENT_SENSOR_VALUE) {
-		pEs = dynamic_cast<EventSensor*>(pEc);
-		if (pEs == nullptr) {
-//			printf("ERROR dynamic_cast");
-		}
-		pEs->getSensorValue(left, leftCenter, rightCenter, right);
-//		printf("CollSensor::eventHandler Value[%d][%d][%d][%d]",
-//			left, leftCenter, rightCenter, right
-//		);
+		std::cout << "FuncSensor::eventHandler" << "[" << m_sensorState << "]" << std::endl;
+	}else
+	// センサー読み取り間隔設定イベントの場合
+	if (EventContainer::EVENT_CTRL_SENSOR_INTERVAL == pEc->getEventType()) {
+		// センサー計測開始／停止スイッチ切り替え
+		m_intervalValue  = pEc->toInt();
+		std::cout << "FuncSensor::eventHandler() : IntervalValue" << "[" << m_intervalValue << "]" << std::endl;
 	}
-	else {
-//		printf("CollSensor::eventHandler");
-	}
-#endif
 }
 
 /**
@@ -111,12 +118,28 @@ void FuncSensor::eventHandler(const EventContainer *pEc)
 */
 void FuncSensor::measureSensor()
 {
+#if _FOR_LINUX_DRIVER
 	char buf[50];
 	int sensor;
+#endif
 	int data[4];
 
 	while (1)
 	{
+		// wait
+		//std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(m_intervalValue));
+
+		// センサースイッチがFLASEの場合はセンサー読み取り停止
+		if(false == m_sensorState) {
+//			continue;
+			std::cout << "FuncSensor::measureSensor()" << "[SENSOR OFF]" << std::endl;
+			// センサースイッチがONになるまでスレッド停止
+			std::unique_lock<std::mutex> uniq_lk(mtx);
+			cv.wait(uniq_lk, [this] { return m_sensorState; }); 
+			std::cout << "FuncSensor::measureSensor()" << "[SENSOR ON]" << std::endl;
+		}
+
 		if (false == m_threadState)
 		{
 			break;
@@ -143,15 +166,12 @@ void FuncSensor::measureSensor()
 		data[3]=40;
 #endif
 
-		// データ配信
+		// センサー読み取り値を配信
 		EventInfoSensorValue ev;
 		ev.setSensorValue(data[0], data[1], data[2], data[3]);
 		std::cout << "FuncSensor event throw!!" << std::endl;
 		eventThrow(&ev);
 
-		// wait
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		//std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 }
 

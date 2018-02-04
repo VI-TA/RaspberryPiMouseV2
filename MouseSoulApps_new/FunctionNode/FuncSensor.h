@@ -9,6 +9,8 @@
 */
 
 #include <thread>
+#include <mutex>
+#include <condition_variable>
 
 class FunctionNode;
 class EventContainer;
@@ -44,11 +46,18 @@ private:
 	//! スレッドインスタンス
 	std::thread m_thread;
 
+	std::mutex mtx;
+
+	std::condition_variable cv;
+
 	//! センサー計測スレッド状態
 	bool m_threadState;
 
 	//! センサー計測開始／停止
 	bool m_sensorState;
+
+	//! センサー計測開始／停止
+	int m_intervalValue;
 
 };
 

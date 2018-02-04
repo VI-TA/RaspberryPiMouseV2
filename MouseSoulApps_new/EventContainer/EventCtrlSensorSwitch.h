@@ -17,10 +17,16 @@ class EventCtrlSensorSwitch : public EventContainer
 public:
 	// コンストラクタ
 	EventCtrlSensorSwitch();
+	EventCtrlSensorSwitch(bool sw);
 
 	// デストラクタ
 	~EventCtrlSensorSwitch();
 
+        //! シリアライズデータ設定
+        virtual bool setSerializeString(std::string serializeString);
+
+	// シリアライズ文字列
+	virtual std::string	toSerializeString(void) const;
 private:
 	// センサー測定値(左センサー）
 	int m_left;

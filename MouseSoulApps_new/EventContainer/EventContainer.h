@@ -26,8 +26,10 @@ public:
 	enum EVENT_TYPE {
 		EVENT_INFO_SENSOR_VALUE,			//!< [情報] センサー値配信イベント
 		EVENT_CTRL_SENSOR_SWITCH,			//!< [制御] センサースイッチ制御イベント
-		EVENT_CTRL_MOTER_CONTROL,			//!< [情報] モーター制御イベント
-		EVENT_CTRL_MOTER_SWITCH,			//!< [制御] モータースイッチ制御イベント
+		EVENT_CTRL_SENSOR_INTERVAL,			//!< [制御] センサー値インターバルイベント
+		EVENT_CTRL_MOTOR_CONTROL,			//!< [情報] モーター制御イベント
+		EVENT_CTRL_MOTOR_SWITCH,			//!< [制御] モータースイッチ制御イベント
+		EVENT_CTRL_MOTOR_SPEED,				//!< [制御] モータースピード制御イベント
 		EVENT_CTRL_LED_CONTROL,				//!< [制御] LED制御イベント
 		EVENT_CTRL_SOUND_CONTROL,			//!< [制御] 音源制御イベント
 		EVENT_CTRL_EXCOM_CONTROL,			//!< [制御] 外部通信制御イベント
@@ -36,7 +38,7 @@ public:
 	};
 	
 	//! コンストラクタ
-	EventContainer();									//!< 空データイベント
+	EventContainer();						//!< 空データイベント
 	EventContainer(bool data);
 	EventContainer(int data);
 	EventContainer(unsigned long data);
@@ -52,20 +54,23 @@ public:
 	//! イベントタイプ取得
 	EVENT_TYPE	getEventType() const;
 
+	//! シリアライズデータ設定
+	virtual bool setSerializeString(std::string serializeString)=0;
+
 	//! データ取得メソッド
-	virtual bool						toBool(void);
-	virtual int							toInt(void);
-	virtual unsigned long				toULong(void);
-	virtual float						toFloat(void);
-	virtual std::vector<int>			toIntArray(void);
-	virtual std::vector<unsigned long>	toULongArray(void);
-	virtual std::vector<float>			toFloatArray(void);
-	virtual std::string					toString(void);
+	virtual bool						toBool(void) const;
+	virtual int							toInt(void) const;
+	virtual unsigned long				toULong(void) const;
+	virtual float						toFloat(void) const;
+	virtual std::vector<int>			toIntArray(void) const;
+	virtual std::vector<unsigned long>	toULongArray(void) const;
+	virtual std::vector<float>			toFloatArray(void) const;
+	virtual std::string					toString(void) const;
+	virtual std::string					toSerializeString(void) const;
 	
 	//! [DEBUG] イベント名表示
-	void 		printEventName(EVENT_TYPE) const;
+	void	printEventName(EVENT_TYPE) const;
 
-private:
 	//! データ設定メソッド
 	void setData(bool data);
 	void setData(int data);
@@ -75,6 +80,7 @@ private:
 	void setData(std::vector<unsigned long> data);
 	void setData(std::vector<float> data);
 	void setData(std::string data);
+private:
 
 	//! イベントタイプ
 	EVENT_TYPE	m_type;
@@ -89,6 +95,7 @@ private:
 	std::vector<float>			m_floatArray;		//!< FLOAT ARRAY
 	std::string					m_string;			//!< STRING
 
+	std::string					m_serializeStr;		//!< SERIALIZE STRING
 protected:
 
 	void setEventType(EVENT_TYPE type);

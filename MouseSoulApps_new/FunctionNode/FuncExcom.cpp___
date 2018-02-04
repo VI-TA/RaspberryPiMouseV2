@@ -1,0 +1,160 @@
+/**
+* @file FuncExcom.cpp
+* @brief 外部通信制御
+* @details 外部通信制御
+*/
+
+#include "stdafx.h"
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <signal.h>
+#include <fcntl.h>
+
+#include <iostream>
+#include <thread>
+
+#include "FunctionNode.h"
+#include "FuncExcom.h"
+#include "FuncExcom.h"
+
+#include "EventContainer.h"
+#include "EventInfoSensorValue.h"
+#include "EventCtrlLedControl.h"
+
+// コンストラクタ
+FuncExcom::FuncExcom()
+{
+	m_threadState = false;	// スレッド停止
+}
+
+// デストラクタ
+FuncExcom::~FuncExcom()
+{
+}
+
+bool FuncExcom::startExCom()
+{
+	std::cout << "FuncExcom::startExCom() IN" << std::endl;
+
+	// 通信設定
+	signal(SIGPIPE, SIG_IGN);       // SIGPIPEシグナルを無視する
+
+	std::cout << "FuncExcom::startExCom() create socket" << std::endl;
+
+	// ソケットの作成
+	m_socket = socket(AF_INET, SOCK_STREAM, 0);
+	if(m_socket < 0) {
+		perror("socket");
+		std::cout << "FuncExcom::startExCom() socket error" << "[" << errno << "]" << std::endl;
+		return false;
+	}
+
+	/* ソケットの設定 */
+	m_serverInfo.sin_family = AF_INET;
+	m_serverInfo.sin_port = htons(49152);
+	m_serverInfo.sin_addr.s_addr = INADDR_ANY;
+
+	// バインドする
+	if(bind(m_socket, (struct sockaddr *)&m_serverInfo, sizeof(m_serverInfo)) < 0) {
+		perror("bind");
+		std::cout << "FuncExcom::startExCom() bind error" << "[" << errno << "]" << std::endl;
+		return false;
+	}
+
+	std::cout << "FuncExcom::startExCom() bind ok!!" << std::endl;
+
+	// TCPクライアントからの接続要求を待てる状態にする
+	if(listen(m_socket, 5) < 0) {
+		perror("listen");
+		std::cout << "FuncExcom::startExCom() listen error" << "[" << errno << "]" << std::endl;
+		return false;
+	}
+
+	std::cout << "FuncExcom::startExCom() listen ok!!" << std::endl;
+
+
+	std::cout << "FuncExcom::startExCom() create socket complite!!" << std::endl;
+
+	// スレッド起動
+	m_threadState = true;	// スレッド開始
+	m_recvThread = std::thread(&FuncExcom::recvThread, this);
+	m_sendThread = std::thread(&FuncExcom::sendThread, this);
+
+	return true;
+}
+
+// イベントルータークラス登録
+void FuncExcom::setEventRouter(EventRouterBase *pEventRouter)
+{
+	// 独自処理定義
+
+	// 基底クラスへ通知
+	FunctionNode::setEventRouter(pEventRouter);
+}
+
+void FuncExcom::eventHandler(const EventContainer *pEc)
+{
+	std::cout << "FuncExcom::eventHandler" << "[" << pEc->getEventType() << "]" << std::endl;
+	pEc->printEventName(pEc->getEventType());
+}
+
+void FuncExcom::recvThread()
+{
+	std::cout << "FuncExcom::recvThread() thread start !!" << std::endl;
+
+	// TCPクライアントからの接続要求を受け付ける
+	unsigned int len = sizeof(m_clientInfo);
+	if((m_clientSocket = accept(m_socket, (struct sockaddr *)&m_clientInfo, &len)) < 0) {
+		perror("accept");
+		std::cout << "FuncExcom::startExCom() accept error" << "[" << errno << "]" << std::endl;
+		return false;
+	}
+
+	std::cout << "FuncExcom::startExCom() accept ok!!" << std::endl;
+
+	while(1) {
+		memset(m_recBuff, 0, sizeof(m_recBuff));
+		// パケット受信、パケットが到着するまでブロック
+		if(read(m_clientSocket, m_recBuff, sizeof(m_recBuff)) < 0) {
+			perror("recv");
+			std::cout << "FuncExcom::recvThread() read error" << "[" << errno << "]" << std::endl;
+			pthread_exit(0);
+		}
+
+		// まずは受信できるか確認する。
+		std::cout << "FuncExcom::recvThread()" << m_recBuff << std::endl;	
+	}
+}
+
+void FuncExcom::sendThread()
+{
+	std::cout << "FuncExcom::sendThread() thread start !!" << std::endl;
+#if 0
+        while(1) {
+                printf("Input next word!! : ");
+                if(status == 3 ){
+                        printf("exit thread_write\n");
+                        pthread_exit(0);
+                }
+
+                sleep(2);
+                sprintf(dat.buf, "12345");
+
+                //scanf("%s", &dat.buf);
+
+                /* 5文字送信 */
+                write(m_clientSocket, &dat, sizeof(dat));
+
+                // "END" を入力したら終了
+                if(strncmp(dat.buf, "END", strlen(dat.buf)) == 0) {
+                        break;
+                }
+        }
+#endif
+}
+

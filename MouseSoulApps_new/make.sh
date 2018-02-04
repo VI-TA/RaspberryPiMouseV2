@@ -1,6 +1,9 @@
+#!/bin/sh
+
 make -f Makefile.EventContainer
 make -f Makefile.EventRouter
 make -f Makefile.FunctionNode
 make -f Makefile.MouseSoulApps
 make -f Makefile
+
 

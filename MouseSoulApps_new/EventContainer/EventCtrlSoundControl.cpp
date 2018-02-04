@@ -29,3 +29,15 @@ std::vector<int> EventCtrlSoundControl::getSoundScore(void)
 {
 	return m_score;
 }
+
+// シリアライズデータ設定
+bool EventCtrlSoundControl::setSerializeString(std::string serializeString)
+{
+}
+
+// シリアライズ文字列取得
+std::string EventCtrlSoundControl::toSerializeString() const
+{
+	std::string	tmpStr;
+	return tmpStr;
+}

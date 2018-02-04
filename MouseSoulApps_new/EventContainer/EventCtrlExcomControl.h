@@ -20,6 +20,12 @@ public:
 
 	// デストラクタ
 	~EventCtrlExcomControl();
+
+        //! シリアライズデータ設定
+        virtual bool setSerializeString(std::string serializeString);
+
+	// シリアライズ文字列
+	virtual std::string	toSerializeString(void) const;
 private:
 };
 
