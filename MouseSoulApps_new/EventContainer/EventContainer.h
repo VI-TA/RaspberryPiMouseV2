@@ -68,9 +68,6 @@ public:
 	virtual std::string					toString(void) const;
 	virtual std::string					toSerializeString(void) const;
 	
-	//! [DEBUG] イベント名表示
-	void	printEventName(EVENT_TYPE) const;
-
 	//! データ設定メソッド
 	void setData(bool data);
 	void setData(int data);

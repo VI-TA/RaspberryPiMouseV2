@@ -30,13 +30,15 @@ void EventCtrlMotorControl::setMotorCommand(int command)
 	// 入力値チェック
 	if(EventCtrlMotorControl::BEGIN <= command &&
 	   EventCtrlMotorControl::END >= command) {
+		// モーター制御コマンド設定
+		m_command = command;
+	} else {
 		// コマンド値外
 		// 暴走抑止のためモーターを止める。
 		m_command = CTRL_STOP;
-	} else {
-		// モーター制御コマンド設定
-		m_command = command;
 	}
+
+	setData(m_command);
 }
 
 int EventCtrlMotorControl::getMotorCommand(void)
@@ -74,18 +76,23 @@ bool EventCtrlMotorControl::setSerializeString(std::string serializeString)
     std::string tmpStr = v.at(1);
     if(std::strcmp("STOP", tmpStr.c_str()) == 0) {
 		m_command = CTRL_STOP;
+		setData(m_command);
     }else
     if(std::strcmp("FORWARD", tmpStr.c_str()) == 0) {
 		m_command = CTRL_FORWARD;
+		setData(m_command);
     }else
     if(std::strcmp("BACK", tmpStr.c_str()) == 0) {
 		m_command = CTRL_BACK;
+		setData(m_command);
     }else
     if(std::strcmp("RIGHT", tmpStr.c_str()) == 0) {
 		m_command = CTRL_RIGHT_TRUN;
+		setData(m_command);
     }else
     if(std::strcmp("LEFT", tmpStr.c_str()) == 0) {
 		m_command = CTRL_LEFT_TRUN;
+		setData(m_command);
     }else{
         std::cout << "EventCtrlMotorControl::setSerializeString() switch set error.." << std::endl;
     }

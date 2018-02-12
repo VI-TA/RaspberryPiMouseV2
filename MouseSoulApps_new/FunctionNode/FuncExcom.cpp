@@ -124,7 +124,6 @@ void FuncExcom::setEventRouter(EventRouterBase *pEventRouter)
 void FuncExcom::eventHandler(const EventContainer *pEc)
 {
 	std::cout << "FuncExcom::eventHandler" << "[" << pEc->getEventType() << "]" << std::endl;
-	pEc->printEventName(pEc->getEventType());
 
 	// センサー読み取り値
 	if (EventContainer::EVENT_INFO_SENSOR_VALUE == pEc->getEventType()) {

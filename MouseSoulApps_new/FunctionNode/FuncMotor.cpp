@@ -16,6 +16,7 @@
 #include <condition_variable>
 
 #include <iostream>
+#include <cstring>
 
 #include "FunctionNode.h"
 #include "FuncMotor.h"
@@ -23,6 +24,11 @@
 #include "EventContainer.h"
 #include "EventCtrlMotorSwitch.h"
 #include "EventCtrlMotorControl.h"
+
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 // コンストラクタ
 FuncMotor::FuncMotor()
@@ -67,6 +73,7 @@ void FuncMotor::eventHandler(const EventContainer *pEc)
 		is_receiveEvent = true;
 		std::lock_guard<std::mutex> uniq_lk(mtx);
 		cv.notify_all();
+		std::cout << "FuncMotor::eventHandler() : Motor SW" << "[" << m_motorCommand << "]" << std::endl;
 	}else
 	if (EventContainer::EVENT_CTRL_MOTOR_CONTROL == pEc->getEventType()) {
 		// モーターコマンド値取得
@@ -75,6 +82,7 @@ void FuncMotor::eventHandler(const EventContainer *pEc)
 		is_receiveEvent = true;
 		std::lock_guard<std::mutex> uniq_lk(mtx);
 		cv.notify_all();
+		std::cout << "FuncMotor::eventHandler() : Motor Control" << "[" << m_motorCommand << "]" << std::endl;
 	}else
 	if (EventContainer::EVENT_CTRL_MOTOR_SPEED == pEc->getEventType()) {
 		// モータースピード取得
@@ -87,8 +95,8 @@ void FuncMotor::eventHandler(const EventContainer *pEc)
 void FuncMotor::motorControlThread()
 {
 	int motorCommand;
-//        char buf[50], bufL[50], bufR[50];
-//        int motor, motorL, motorR;
+        char buf[50], bufL[50], bufR[50];
+        int motor, motorL, motorR, motorSpeed;
 
 	std::cout << "FuncMotor::motorControlThread()" << std::endl;
 
@@ -98,40 +106,47 @@ void FuncMotor::motorControlThread()
 	std::unique_lock<std::mutex> uniq_lk(mtx);
 	cv.wait(uniq_lk, [this] { return is_receiveEvent; });
 	is_receiveEvent = false;
+	std::cout << "FuncMotor::motorControlThread() Thread torigger" << std::endl;
 	// -----
 
 	// ローカル変数にモーターコマンドをコピー（上書き対策）
 	motorCommand = m_motorCommand;
+	motorSpeed = m_motorSpeed;
 
 	// モーター制御コマンド
+	std::memset(buf, 0, sizeof(buf));
+	std::memset(bufR, 0, sizeof(bufR));
+	std::memset(bufL, 0, sizeof(bufL));
 
 	// モータースイッチOFF
 	if(EventCtrlMotorControl::CTRL_SW_OFF == motorCommand) {
-#ifdef _LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 		motor = open("/dev/rtmotoren0", O_WRONLY);
-		sprintf(buf, "0", 1);
-		write(motor, buf, strlen(buf));
+		buf[0] = '0';
+		write(motor, buf, std::strlen(buf));
+		close(motor);
 #endif
 		std::cout << "FuncMotor::motorControlThread() CTRL_SW_OFF" << std::endl;
 	} else
 	// モータースイッチON
-	if(EventCtrlMotorControl::CTRL_SW_OFF == motorCommand) {
-#ifdef _LINUX_DRIVER
+	if(EventCtrlMotorControl::CTRL_SW_ON == motorCommand) {
+#ifdef _FOR_LINUX_DRIVER
 		motor = open("/dev/rtmotoren0", O_WRONLY);
-		sprintf(buf, "1", 1);
-		write(motor, buf, strlen(buf));
+		buf[0] = '1';
+		write(motor, buf, std::strlen(buf));
+		close(motor);
 #endif
 		std::cout << "FuncMotor::motorControlThread() CTRL_SW_ON" << std::endl;
 	} else
 	// モーターストップ
 	if(EventCtrlMotorControl::CTRL_STOP == motorCommand) {
-#ifdef _LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 		motorL = open("/dev/rtmotor_raw_l0", O_WRONLY);
 		motorR = open("/dev/rtmotor_raw_r0", O_WRONLY);
-		sprintf(bufL, "0");
-		sprintf(bufR, "0");
-		write(motorL, bufL, strlen(bufL));
-		write(motorR, bufR, strlen(bufR));
+		bufL[0] = '0';
+		bufR[0] = '0';
+		write(motorL, bufL, std::strlen(bufL));
+		write(motorR, bufR, std::strlen(bufR));
 		close(motorL);
 		close(motorR);
 #endif
@@ -139,26 +154,26 @@ void FuncMotor::motorControlThread()
 	} else
 	// 前進
 	if(EventCtrlMotorControl::CTRL_FORWARD == motorCommand) {
-#ifdef _LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 		motorL = open("/dev/rtmotor_raw_l0", O_WRONLY);
 		motorR = open("/dev/rtmotor_raw_r0", O_WRONLY);
-		sprintf(buf, "%d", motor_speed);
-		write(motorL, buf, strlen(buf));
-		write(motorR, buf, strlen(buf));
+		snprintf(buf, sizeof(buf), "%d", motorSpeed);
+		write(motorL, buf, std::strlen(buf));
+		write(motorR, buf, std::strlen(buf));
 		close(motorL);
 		close(motorR);
 #endif
-		std::cout << "FuncMotor::motorControlThread() CTRL_FORWARD" << std::endl;
+		std::cout << "FuncMotor::motorControlThread() CTRL_FORWARD speed[" << buf << "]" << std::endl;
 	} else
 	// 左回り
 	if(EventCtrlMotorControl::CTRL_LEFT_TRUN == motorCommand) {
-#ifdef _LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 		motorL = open("/dev/rtmotor_raw_l0", O_WRONLY);
 		motorR = open("/dev/rtmotor_raw_r0", O_WRONLY);
-		sprintf(bufL, "%d", motor_speed*-1);
-		sprintf(bufR, "%d", motor_speed);
-		write(motorL, bufL, strlen(bufL));
-		write(motorR, bufR, strlen(bufR));
+		snprintf(bufL, sizeof(bufL), "%d", motorSpeed*-1);
+		snprintf(bufR, sizeof(bufR), "%d", motorSpeed);
+		write(motorL, bufL, std::strlen(bufL));
+		write(motorR, bufR, std::strlen(bufR));
 		close(motorL);
 		close(motorR);
 #endif
@@ -166,13 +181,13 @@ void FuncMotor::motorControlThread()
 	} else
 	// 右回り
 	if(EventCtrlMotorControl::CTRL_RIGHT_TRUN == motorCommand) {
-#ifdef _LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 		motorL = open("/dev/rtmotor_raw_l0", O_WRONLY);
 		motorR = open("/dev/rtmotor_raw_r0", O_WRONLY);
-		sprintf(bufL, "%d", motor_speed);
-		sprintf(bufR, "%d", motor_speed*-1);
-		write(motorL, bufL, strlen(bufL));
-		write(motorR, bufR, strlen(bufR));
+		snprintf(bufL, sizeof(bufL), "%d", motorSpeed);
+		snprintf(bufR, sizeof(bufR), "%d", motorSpeed*-1);
+		write(motorL, bufL, std::strlen(bufL));
+		write(motorR, bufR, std::strlen(bufR));
 		close(motorL);
 		close(motorR);
 #endif
@@ -180,13 +195,13 @@ void FuncMotor::motorControlThread()
 	} else
 	// 後退
 	if(EventCtrlMotorControl::CTRL_BACK == motorCommand) {
-#ifdef _LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 		motorL = open("/dev/rtmotor_raw_l0", O_WRONLY);
 		motorR = open("/dev/rtmotor_raw_r0", O_WRONLY);
-		sprintf(bufL, "%d", motor_speed*-1);
-		sprintf(bufR, "%d", motor_speed*-1);
-		write(motorL, bufL, strlen(bufL));
-		write(motorR, bufR, strlen(bufR));
+		snprintf(bufL, sizeof(bufL), "%d", motorSpeed*-1);
+		snprintf(bufR, sizeof(bufR), "%d", motorSpeed*-1);
+		write(motorL, bufL, std::strlen(bufL));
+		write(motorR, bufR, std::strlen(bufR));
 		close(motorL);
 		close(motorR);
 #endif

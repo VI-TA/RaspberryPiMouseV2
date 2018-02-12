@@ -63,6 +63,8 @@ bool EventCtrlSensorInterval::setSerializeString(std::string serializeString)
 	setData(interval);
 
 	std::cout << "EventCtrlSensorInterval::setSerializeString() OUT." << std::endl;
+
+	return true;
 }
 
 // シリアライズ文字列取得

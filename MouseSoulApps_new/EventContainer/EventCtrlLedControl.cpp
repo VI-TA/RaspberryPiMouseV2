@@ -34,6 +34,7 @@ int EventCtrlLedControl::getLed(void)
 // シリアライズデータ設定
 bool EventCtrlLedControl::setSerializeString(std::string serializeString)
 {
+	return true;
 }
 
 // シリアライズ文字列取得

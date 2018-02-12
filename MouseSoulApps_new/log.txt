@@ -1,4 +1,31 @@
-g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o ./obj/FuncMoter.o -c FunctionNode/FuncMoter.cpp
-Makefile.FunctionNode:29: recipe for target 'obj/FuncMoter.o' failed
-g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o ./obj/FuncMoter.o -c FunctionNode/FuncMoter.cpp
-Makefile.FunctionNode:29: recipe for target 'obj/FuncMoter.o' failed
+～～～～～通常ビルド～～～～～
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlSensorInterval.o -c EventContainer/EventCtrlSensorInterval.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlAutoSwitch.o -c EventContainer/EventCtrlAutoSwitch.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventInfoSensorValue.o -c EventContainer/EventInfoSensorValue.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlLedControl.o -c EventContainer/EventCtrlLedControl.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventContainer.o -c EventContainer/EventContainer.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlMotorControl.o -c EventContainer/EventCtrlMotorControl.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlMotorSpeed.o -c EventContainer/EventCtrlMotorSpeed.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlSensorSwitch.o -c EventContainer/EventCtrlSensorSwitch.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/stdafx.o -c EventContainer/stdafx.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlAutoControl.o -c EventContainer/EventCtrlAutoControl.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlMotorSwitch.o -c EventContainer/EventCtrlMotorSwitch.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlSoundControl.o -c EventContainer/EventCtrlSoundControl.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventFactory.o -c EventContainer/EventFactory.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventCtrlExcomControl.o -c EventContainer/EventCtrlExcomControl.cpp
+ar rcs obj/EventContainer.a obj/EventCtrlSensorInterval.o obj/EventCtrlAutoSwitch.o obj/EventInfoSensorValue.o obj/EventCtrlLedControl.o obj/EventContainer.o obj/EventCtrlMotorControl.o obj/EventCtrlMotorSpeed.o obj/EventCtrlSensorSwitch.o obj/stdafx.o obj/EventCtrlAutoControl.o obj/EventCtrlMotorSwitch.o obj/EventCtrlSoundControl.o obj/EventFactory.o obj/EventCtrlExcomControl.o
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventRouterBase.o -c EventRouter/EventRouterBase.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/EventRouter.o -c EventRouter/EventRouter.cpp
+ar rcs obj/EventRouter.a obj/EventRouterBase.o obj/stdafx.o obj/EventRouter.o
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -D_FOR_LINUX_DRIVER -o obj/FuncSound.o -c FunctionNode/FuncSound.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -D_FOR_LINUX_DRIVER -o obj/FuncLed.o -c FunctionNode/FuncLed.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -D_FOR_LINUX_DRIVER -o obj/FuncExcom.o -c FunctionNode/FuncExcom.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -D_FOR_LINUX_DRIVER -o obj/FuncAuto.o -c FunctionNode/FuncAuto.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -D_FOR_LINUX_DRIVER -o obj/FuncMotor.o -c FunctionNode/FuncMotor.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -D_FOR_LINUX_DRIVER -o obj/FuncSensor.o -c FunctionNode/FuncSensor.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -D_FOR_LINUX_DRIVER -o obj/FunctionNode.o -c FunctionNode/FunctionNode.cpp
+ar rcs obj/FunctionNode.a obj/FuncSound.o obj/FuncLed.o obj/FuncExcom.o obj/stdafx.o obj/FuncAuto.o obj/FuncMotor.o obj/FuncSensor.o obj/FunctionNode.o
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/Sub.o -c MouseSoulApps/Sub.cpp
+g++ -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer -o obj/MouseSoulApps.o -c MouseSoulApps/MouseSoulApps.cpp
+ar rcs obj/MouseSoulApps.a obj/Sub.o obj/MouseSoulApps.o obj/stdafx.o
+g++ -o bin/MouseSoulApps obj/MouseSoulApps.a obj/FunctionNode.a obj/EventContainer.a obj/EventRouter.a -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers -lpthread -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer

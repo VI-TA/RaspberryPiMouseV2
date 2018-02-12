@@ -40,6 +40,7 @@ int main()
 	eventRouter.addEventListener(EventContainer::EVENT_CTRL_SENSOR_INTERVAL, &funcSensor);
 	// センサー読み取り値
 	eventRouter.addEventListener(EventContainer::EVENT_INFO_SENSOR_VALUE,    &funcExcom);
+	eventRouter.addEventListener(EventContainer::EVENT_INFO_SENSOR_VALUE,    &funcAuto);
 	// モーター制御
 	eventRouter.addEventListener(EventContainer::EVENT_CTRL_MOTOR_CONTROL,   &funcMotor);
 	eventRouter.addEventListener(EventContainer::EVENT_CTRL_MOTOR_SWITCH,    &funcMotor);
@@ -53,6 +54,7 @@ int main()
 
 	funcSensor.setEventRouter(&eventRouter);
 	funcExcom.setEventRouter(&eventRouter);
+	funcAuto.setEventRouter(&eventRouter);
 
 
 	funcExcom.startExCom();

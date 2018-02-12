@@ -1,10 +1,11 @@
 COMPILER  = g++
 CFLAGS    = -std=c++11 -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers
-ifeq "$(shell getconf LONG_BIT)" "64"
-  LDFLAGS =
-else
-  LDFLAGS =
-endif
+#ifeq "$(shell getconf LONG_BIT)" "64"
+#  LDFLAGS =
+#else
+#  LDFLAGS =
+#endif
+LDFLAGS = -D_FOR_LINUX_DRIVER
 LIBS      =
 INCLUDE   = -I./MouseSoulApps -I./FunctionNode -I./EventRouter -I./EventContainer
 TARGET    = ./obj/FunctionNode.a
@@ -26,7 +27,7 @@ $(TARGET): $(OBJECTS) $(LIBS)
 	ar rcs $@ $^
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	$(COMPILER) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	$(COMPILER) $(CFLAGS) $(INCLUDE) $(LDFLAGS) -o $@ -c $<
 
 all: clean $(TARGET)
 

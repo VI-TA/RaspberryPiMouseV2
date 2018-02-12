@@ -33,6 +33,7 @@ std::vector<int> EventCtrlSoundControl::getSoundScore(void)
 // シリアライズデータ設定
 bool EventCtrlSoundControl::setSerializeString(std::string serializeString)
 {
+	return true;
 }
 
 // シリアライズ文字列取得

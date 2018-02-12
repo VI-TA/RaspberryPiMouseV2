@@ -69,6 +69,8 @@ bool EventCtrlSensorSwitch::setSerializeString(std::string serializeString)
 	}
 
 	std::cout << "EventCtrlSensorSwitch::setSerializeString() OUT." << std::endl;
+
+	return true;
 }
 
 // シリアライズ文字列取得

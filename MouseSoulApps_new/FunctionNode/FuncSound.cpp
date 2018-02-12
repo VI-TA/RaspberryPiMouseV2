@@ -36,5 +36,4 @@ void FuncSound::setEventRouter(EventRouterBase *pEventRouter)
 void FuncSound::eventHandler(const EventContainer *pEc)
 {
 	std::cout << "FuncSound::eventHandler" << "[" << pEc->getEventType() << "]" << std::endl;
-	pEc->printEventName(pEc->getEventType());
 }

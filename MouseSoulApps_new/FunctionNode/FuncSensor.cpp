@@ -5,14 +5,14 @@
 * @details 2) 読み取った値をイベントコンテナに設定して配信する。
 * @details 3) センサー値読み取りは外部からON/OFFできる。
 * @note
-* @todo センサー値は丸める。
-* @todo 前回値と同じなら配信しない。
+* @todo
 */
 
 #include "stdafx.h"
 
 #include <iostream>
 #include <thread>
+#include <cstring>
 
 #include "FunctionNode.h"
 #include "FuncSensor.h"
@@ -24,9 +24,10 @@
 #include "EventCtrlSensorSwitch.h"
 #include "EventInfoSensorValue.h"
 
-//#include <sys/types.h>
-//#include <sys/stat.h>
-//#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 /**
 * @fn FuncSensor::FuncSensor()
@@ -118,7 +119,7 @@ void FuncSensor::eventHandler(const EventContainer *pEc)
 */
 void FuncSensor::measureSensor()
 {
-#if _FOR_LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 	char buf[50];
 	int sensor;
 #endif
@@ -145,13 +146,15 @@ void FuncSensor::measureSensor()
 			break;
 		}
 
-#if _FOR_LINUX_DRIVER
+#ifdef _FOR_LINUX_DRIVER
 		// ドライバを開く
 		sensor = open("/dev/rtlightsensor0", O_RDONLY);
 
 		// 計測値の読み取る。
 		std::memset(buf, 0, sizeof(buf));
 		read(sensor, buf, 20);
+
+		std::cout << "Sensor data =" << buf << std::endl;
 
 		// データを配信用に加工する。
 		sscanf(buf, "%d %d %d %d", data, data + 1, data + 2, data + 3);
@@ -168,7 +171,8 @@ void FuncSensor::measureSensor()
 
 		// センサー読み取り値を配信
 		EventInfoSensorValue ev;
-		ev.setSensorValue(data[0], data[1], data[2], data[3]);
+		// 左、左中央、右中央、右 センサー順に設定する。
+		ev.setSensorValue(data[3], data[2], data[1], data[0]);
 		std::cout << "FuncSensor event throw!!" << std::endl;
 		eventThrow(&ev);
 

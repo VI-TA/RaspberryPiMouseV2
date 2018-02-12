@@ -26,6 +26,10 @@ void EventInfoSensorValue::setSensorValue(int left, int leftCenter, int rightCen
 	m_leftCenter = leftCenter;
 	m_rightCenter = rightCenter;
 	m_right = right;
+
+	// vectorにも設定する。
+	std::vector<int> tmpSensor = {m_left, m_leftCenter, m_rightCenter, m_right};;
+	setData(tmpSensor);
 }
 
 void EventInfoSensorValue::getSensorValue(int &left, int &leftCenter, int &rightCenter, int &right)
@@ -39,6 +43,7 @@ void EventInfoSensorValue::getSensorValue(int &left, int &leftCenter, int &right
 // シリアライズデータ設定
 bool EventInfoSensorValue::setSerializeString(std::string serializeString)
 {
+	return true;
 }
 
 // シリアライズ文字列取得

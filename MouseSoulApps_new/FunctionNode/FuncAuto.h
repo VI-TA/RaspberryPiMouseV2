@@ -11,6 +11,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <vector>
 
 class FunctionNode;
 class EventContainer;
@@ -38,8 +39,14 @@ private:
 	//! スレッドインスタンス
 	std::thread m_thread;
 
+	//! 自走スレッドイベントトリガー
+	bool m_eventTrigger;
+
 	//! 自動モードスイッチ
 	bool m_autoMode;
+
+	//! センサー値
+	std::vector<int> m_sensorValue;
 
 };
 

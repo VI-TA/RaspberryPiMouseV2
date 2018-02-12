@@ -36,5 +36,4 @@ void FuncLed::setEventRouter(EventRouterBase *pEventRouter)
 void FuncLed::eventHandler(const EventContainer *pEc)
 {
 	std::cout << "FuncLed::eventHandler" << "[" << pEc->getEventType() << "]" << std::endl;
-	pEc->printEventName(pEc->getEventType());
 }

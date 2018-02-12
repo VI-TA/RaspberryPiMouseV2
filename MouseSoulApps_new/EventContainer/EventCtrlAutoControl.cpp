@@ -23,6 +23,7 @@ EventCtrlAutoControl::~EventCtrlAutoControl()
 // シリアライズデータ設定
 bool EventCtrlAutoControl::setSerializeString(std::string serializeString)
 {
+	return true;
 }
 
 // シリアライズ文字列取得

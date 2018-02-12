@@ -23,6 +23,7 @@ EventCtrlExcomControl::~EventCtrlExcomControl()
 // シリアライズデータ設定
 bool EventCtrlExcomControl::setSerializeString(std::string serializeString)
 {
+	return true;
 }
 
 // シリアライズ文字列取得
