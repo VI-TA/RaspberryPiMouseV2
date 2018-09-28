@@ -90,9 +90,16 @@ void FuncAuto::eventHandler(const EventContainer *pEc)
 
 		// 自走モード切り替え
 		if(pEc->toBool()) {
+			// モードOFF -> ONはモードの切り替えのみ。
+			// スレッドの動作はセンサー読み取りイベントにて行う。
 			m_autoMode = true;
 		}else{
 			m_autoMode = false;
+
+			// モードON -> OFFで１度のみスレッドを動作させる。
+			std::lock_guard<std::mutex> uniq_lk(mtx);
+			m_eventTrigger = true;
+			cv.notify_all();
 		}
 
 //		std::lock_guard<std::mutex> uniq_lk(mtx);
@@ -101,7 +108,7 @@ void FuncAuto::eventHandler(const EventContainer *pEc)
 	}
 	else
 	// センサー読み取り値
-	if (EventContainer::EVENT_INFO_SENSOR_VALUE == pEc->getEventType()) {
+	if (EventContainer::EVENT_INFO_SENSOR_VALUE == pEc->getEventType() && true == m_autoMode) {
 		std::cout << "FuncAuto::eventHandler sensor value" << "[" << pEc->getEventType() << "]" << std::endl;
 
 		// センサ―読み取り値を取得
@@ -141,6 +148,13 @@ void FuncAuto::autoThread()
 
 	if(!m_autoMode) {
 		// 自動モードOFFの場合
+		std::cout << "FuncAuto::autoThread() Auto Mode OFF!! [" << std::endl;
+
+		EventCtrlMotorControl ev;
+		ev.setMotorCommand(EventCtrlMotorControl::CTRL_STOP);	// 停止
+		std::cout << "FuncAuto::autoThread motor control STOP event throw!!" << std::endl;
+		eventThrow(&ev);
+
 		continue;
 	}
 

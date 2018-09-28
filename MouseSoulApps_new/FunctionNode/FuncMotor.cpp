@@ -41,6 +41,9 @@ FuncMotor::FuncMotor()
 
 	// モーター制御スレッド起動
 	m_thread = std::thread(&FuncMotor::motorControlThread, this);
+
+	// モータースピード初期化
+	m_motorSpeed = 500;
 }
 
 // デストラクタ

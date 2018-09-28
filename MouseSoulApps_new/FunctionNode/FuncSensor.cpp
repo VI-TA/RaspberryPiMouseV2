@@ -40,7 +40,7 @@
 */
 FuncSensor::FuncSensor()
 {
-	m_intervalValue = 1000;	// センサー読み取り間隔
+	m_intervalValue = 100;	// センサー読み取り間隔
 
 	m_sensorState = false;	// 計測停止
 

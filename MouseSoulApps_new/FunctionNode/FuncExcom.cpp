@@ -204,7 +204,7 @@ void FuncExcom::sendThread()
 		struct sockaddr_in info;
 		info.sin_family = AF_INET;
 		info.sin_port = htons(49152);
-		info.sin_addr.s_addr = inet_addr("192.168.12.30");
+		info.sin_addr.s_addr = inet_addr("192.168.12.18");
 
 		pChar = m_serializeStr.c_str();
 
